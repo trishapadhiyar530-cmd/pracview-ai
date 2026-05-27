@@ -1,64 +1,48 @@
 import axios from "axios";
-import API from "./api";
 
-const API = `${import.meta.env.VITE_API_BASE_URL}/api/ai`;
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
+
+const API = `${API_BASE}/api/ai`;
 
 export const askAI = async (message) => {
-  const response = await axios.post(`${API}/chat`, {
-    message,
-  });
-
+  const response = await axios.post(`${API}/chat`, { message });
   return response.data;
 };
+
 export const generateMockInterview = async (data) => {
-  const response = await axios.post(
-    "/ai/mock-interview",
-    data
-  );
-
+  const response = await axios.post(`${API}/mock-interview`, data);
   return response.data;
 };
+
 export const evaluateInterview = async (data) => {
-  const response = await axios.post(
-    "/ai/evaluate-interview",
-    data
-  );
-
+  const response = await axios.post(`${API}/evaluate-interview`, data);
   return response.data;
 };
 
-export const analyzeResume = async (file, userEmail) => {
+export const analyzeResume = async (file) => {
   const formData = new FormData();
-
   formData.append("file", file);
-  formData.append("userEmail", userEmail);
 
-  const response = await axios.post(
-    "/ai/analyze-resume",
-    formData
-  );
-
+  const response = await axios.post(`${API}/analyze-resume`, formData);
   return response.data;
 };
+
 export const generateQuiz = async (data) => {
-  const response = await axios.post(
-    "/ai/generate-quiz",
-    data
-  );
-
+  const response = await axios.post(`${API}/generate-quiz`, data);
   return response.data;
 };
+
 export const getHistory = async (userEmail) => {
   const response = await axios.get(
-    `/ai/history?userEmail=${userEmail}`
+    `${API}/history?userEmail=${userEmail}`
   );
-
   return response.data;
 };
+
 export const getAnalytics = async (userEmail) => {
   const response = await axios.get(
-    `/ai/analytics?userEmail=${userEmail}`
+    `${API}/analytics?userEmail=${userEmail}`
   );
-
   return response.data;
 };
