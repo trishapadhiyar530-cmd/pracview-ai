@@ -1,18 +1,18 @@
 import axios from "axios";
-
-const API = "http://localhost:8081/api/auth";
+import API from "./api";
+const API = `${import.meta.env.VITE_API_BASE_URL}/api/auth`;
 
 export const signupUser = async (userData) => {
-  const response = await axios.post(`${API}/signup`, userData);
+  const response = API.post("/auth/signup", UserData);
   return response.data;
 };
 export const loginUser = async (loginData) => {
-  const response = await axios.post(`${API}/login`, loginData);
+  const response = API.post("auth/login", loginData);
   return response.data;
 };
 export const getProfile = async (email) => {
   const response = await axios.get(
-    `http://localhost:8081/api/ai/profile?email=${email}`
+    `/ai/profile?email=${email}`
   );
 
   return response.data;

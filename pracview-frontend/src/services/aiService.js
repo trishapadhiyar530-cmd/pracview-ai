@@ -1,6 +1,7 @@
 import axios from "axios";
+import API from "./api";
 
-const API = "http://localhost:8081/api/ai";
+const API = `${import.meta.env.VITE_API_BASE_URL}/api/ai`;
 
 export const askAI = async (message) => {
   const response = await axios.post(`${API}/chat`, {
@@ -11,7 +12,7 @@ export const askAI = async (message) => {
 };
 export const generateMockInterview = async (data) => {
   const response = await axios.post(
-    "http://localhost:8081/api/ai/mock-interview",
+    "/ai/mock-interview",
     data
   );
 
@@ -19,7 +20,7 @@ export const generateMockInterview = async (data) => {
 };
 export const evaluateInterview = async (data) => {
   const response = await axios.post(
-    "http://localhost:8081/api/ai/evaluate-interview",
+    "/ai/evaluate-interview",
     data
   );
 
@@ -33,7 +34,7 @@ export const analyzeResume = async (file, userEmail) => {
   formData.append("userEmail", userEmail);
 
   const response = await axios.post(
-    "http://localhost:8081/api/ai/analyze-resume",
+    "/ai/analyze-resume",
     formData
   );
 
@@ -41,7 +42,7 @@ export const analyzeResume = async (file, userEmail) => {
 };
 export const generateQuiz = async (data) => {
   const response = await axios.post(
-    "http://localhost:8081/api/ai/generate-quiz",
+    "/ai/generate-quiz",
     data
   );
 
@@ -49,14 +50,14 @@ export const generateQuiz = async (data) => {
 };
 export const getHistory = async (userEmail) => {
   const response = await axios.get(
-    `http://localhost:8081/api/ai/history?userEmail=${userEmail}`
+    `/ai/history?userEmail=${userEmail}`
   );
 
   return response.data;
 };
 export const getAnalytics = async (userEmail) => {
   const response = await axios.get(
-    `http://localhost:8081/api/ai/analytics?userEmail=${userEmail}`
+    `/ai/analytics?userEmail=${userEmail}`
   );
 
   return response.data;
