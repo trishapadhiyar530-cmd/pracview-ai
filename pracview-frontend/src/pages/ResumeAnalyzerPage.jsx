@@ -25,10 +25,13 @@ function ResumeAnalyzerPage() {
       const userEmail = localStorage.getItem("userEmail");
       const response = await analyzeResume(file, userEmail);
 
-      setAnalysis(response.response);
+      setAnalysis(response.analysis || response.result || JSON.stringify(response));
       setShowAnalysis(true);
 
     } catch (error) {
+      console.log(error.response?.data);
+      console.log(error.message);
+      
       setAnalysis("⚠️ Resume analysis failed.");
       setShowAnalysis(true);
 

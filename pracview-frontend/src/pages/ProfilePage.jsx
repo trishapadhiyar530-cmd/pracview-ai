@@ -13,7 +13,7 @@ import {
 function ProfilePage() {
   const navigate = useNavigate();
 
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -25,7 +25,7 @@ function ProfilePage() {
         const data = await getProfile(email);
 
         setProfile(data);
-
+        console.log(profile);
       } catch (error) {
         console.error("Profile fetch failed");
       }
