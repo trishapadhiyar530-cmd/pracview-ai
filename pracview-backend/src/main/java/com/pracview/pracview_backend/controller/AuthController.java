@@ -30,6 +30,6 @@ public class AuthController {
 
     @GetMapping("/profile")
     public String profile(@RequestParam String email) {
-        return "Logged in as: " + email;
+        return authService.getProfile(email);
     }
 }

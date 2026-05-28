@@ -16,7 +16,12 @@ import com.pracview.pracview_backend.entity.User;
 
 @RestController
 @RequestMapping("/api/ai")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(
+    origins = {
+        "http://localhost:5173",
+        "https://pracview-ai.vercel.app"
+    }
+)
 public class AIController {
 
     private final AIService aiService;
