@@ -31,7 +31,7 @@ export const evaluateInterview = async (data) => {
   return response.data;
 };
 
-export const analyzeResume = async (file) => {
+export const analyzeResume = async (file, userEmail) => {
   const formData = new FormData();
 
   formData.append("file", file);
