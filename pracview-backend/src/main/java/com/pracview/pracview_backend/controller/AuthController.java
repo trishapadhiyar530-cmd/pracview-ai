@@ -5,7 +5,6 @@ import com.pracview.pracview_backend.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 import com.pracview.pracview_backend.dto.LoginRequest;
 import com.pracview.pracview_backend.dto.LoginResponse;
-import org.springframework.security.core.Authentication;
 import com.pracview.pracview_backend.entity.User;
 
 @RestController

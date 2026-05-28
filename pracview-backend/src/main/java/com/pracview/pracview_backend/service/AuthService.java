@@ -30,7 +30,7 @@ public class AuthService {
 
     public String signup(SignupRequest request) {
 
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        if (userRepository.findByEmailIgnoreCase(request.getEmail()).isPresent()) {
             return "Email already registered";
         }
 
@@ -49,7 +49,7 @@ public class AuthService {
 
     public LoginResponse login(LoginRequest request) {
 
-        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+        Optional<User> userOptional = userRepository.findByEmailIgnoreCase(request.getEmail());
 
         if (userOptional.isEmpty()) {
             System.out.println("USER NOT FOUND");
@@ -81,6 +81,6 @@ public class AuthService {
     }
    
     public User getProfile(String email) {
-        return userRepository.findByEmail(email).orElse(null);
+        return userRepository.findByEmailIgnoreCase(email).orElse(null);
     }
 }
