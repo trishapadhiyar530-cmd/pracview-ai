@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pracview.pracview_backend.dto.LoginRequest;
 import com.pracview.pracview_backend.dto.LoginResponse;
 import org.springframework.security.core.Authentication;
+import com.pracview.pracview_backend.entity.User;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -29,7 +30,7 @@ public class AuthController {
     }
 
     @GetMapping("/profile")
-    public String profile(@RequestParam String email) {
+    public User profile(@RequestParam String email) {
         return authService.getProfile(email);
     }
 }
