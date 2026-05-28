@@ -24,8 +24,10 @@ function ProfilePage() {
 
         const data = await getProfile(email);
 
-        setProfile(data);
         console.log(profile);
+
+        setProfile(data);
+        
       } catch (error) {
         console.error("Profile fetch failed");
       }
