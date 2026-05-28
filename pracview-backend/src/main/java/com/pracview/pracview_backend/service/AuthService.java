@@ -79,4 +79,8 @@ public class AuthService {
 
         return new LoginResponse(token);
     }
+   
+    public User getProfile(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
 }
