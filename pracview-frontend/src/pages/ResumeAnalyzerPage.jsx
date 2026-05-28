@@ -26,7 +26,7 @@ function ResumeAnalyzerPage() {
       console.log(userEmail);
       const response = await analyzeResume(file, userEmail);
 
-      setAnalysis(response.analysis || response.result || JSON.stringify(response));
+      setAnalysis(response.response);
       setShowAnalysis(true);
 
     } catch (error) {
