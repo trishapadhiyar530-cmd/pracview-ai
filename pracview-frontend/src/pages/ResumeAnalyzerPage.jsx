@@ -23,6 +23,7 @@ function ResumeAnalyzerPage() {
 
     try {
       const userEmail = localStorage.getItem("userEmail");
+      console.log(userEmail);
       const response = await analyzeResume(file, userEmail);
 
       setAnalysis(response.analysis || response.result || JSON.stringify(response));
