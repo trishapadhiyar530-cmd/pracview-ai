@@ -29,7 +29,7 @@ public class AuthController {
     }
 
     @GetMapping("/profile")
-    public String profile(Authentication authentication) {
-        return "Logged in as: " + authentication.getName();
+    public String profile(@RequestParam String email) {
+        return "Logged in as: " + email;
     }
 }
