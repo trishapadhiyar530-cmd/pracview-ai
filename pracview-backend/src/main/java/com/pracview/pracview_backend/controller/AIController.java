@@ -119,7 +119,7 @@ public class AIController {
         public User getProfile(
                 @RequestParam String email
         ) {
-        return userRepository.findByEmail(email)
+        return userRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         }
 
