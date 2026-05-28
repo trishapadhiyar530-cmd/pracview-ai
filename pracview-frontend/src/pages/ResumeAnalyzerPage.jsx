@@ -22,8 +22,8 @@ function ResumeAnalyzerPage() {
     setLoading(true);
 
     try {
-      const userEmail = localStorage.getItem("userEmail");
-      const response = await analyzeResume(file, userEmail);
+      const email = localStorage.getItem("userEmail");
+      const response = await analyzeResume(file, email);
 
       setAnalysis(response.analysis || response.result || JSON.stringify(response));
       setShowAnalysis(true);
