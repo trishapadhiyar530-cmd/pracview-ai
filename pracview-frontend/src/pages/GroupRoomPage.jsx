@@ -12,7 +12,7 @@ function GroupRoomPage() {
     { name: "Neha", status: "Ready" },
   ];
 
-  const createRoom = () => {
+  const createRoom = async () => {
     toast.success("Room created! Code: PV2025");
     setJoined(true);
   };
