@@ -17,7 +17,7 @@ function GroupRoomPage() {
     setJoined(true);
   };
 
-  const joinRoom = () => {
+  const joinRoom = async () => {
     if (!roomCode.trim()) {
       toast.error("Enter room code");
       return;
