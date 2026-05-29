@@ -147,6 +147,34 @@ a {
   justify-content: center;
   gap: 20px;
 }
+.profile-edit-btn,
+.profile-save-btn {
+  padding: 12px 24px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #00f5ff, #3b82f6, #8b5cf6);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.35);
+  transition: 0.3s;
+}
+
+.profile-edit-btn,
+.profile-save-btn:hover{
+  transform: translateY(-3px) scale(1.03);
+}
+.profile-card input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.profile-card input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
 
 .primary-btn,
 .action-grid button,
