@@ -83,4 +83,25 @@ public class AuthService {
     public User getProfile(String email) {
         return userRepository.findByEmailIgnoreCase(email).orElse(null);
     }
+    public User updateProfile(User updatedUser) {
+
+   Optional<User> userOptional  =
+            userRepository.findByEmailIgnoreCase(updatedUser.getEmail());
+
+    if (userOptional.isEmpty()) {
+        throw new RuntimeException("User not found");
+    }
+
+    User existingUser = userOptional.get();
+
+    if (existingUser == null) {
+        throw new RuntimeException("User not found");
+    }
+
+    existingUser.setFullName(updatedUser.getFullName());
+    existingUser.setCollege(updatedUser.getCollege());
+    existingUser.setRole(updatedUser.getRole());
+
+    return userRepository.save(existingUser);
+}
 }

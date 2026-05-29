@@ -32,4 +32,9 @@ public class AuthController {
     public User profile(@RequestParam String email) {
         return authService.getProfile(email);
     }
+
+    @PutMapping("/profile")
+    public User updateProfile(@RequestBody User updatedUser) {
+        return authService.updateProfile(updatedUser);
+    }
 }

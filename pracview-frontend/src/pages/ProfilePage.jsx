@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProfile } from "../services/authService";
+import { getProfile, updateprofile } from "../services/authService";
 import {
   FaUser,
   FaEnvelope,
@@ -14,6 +14,8 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({});
+  const [editing, setEditing] = useState(false);
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -27,6 +29,7 @@ function ProfilePage() {
         console.log(profile);
 
         setProfile(data);
+        setFormData(data);
         
       } catch (error) {
         console.error("Profile fetch failed");
@@ -35,6 +38,32 @@ function ProfilePage() {
 
     fetchProfile();
   }, []);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const saveProfile = async () => {
+    try {
+
+      const updated =
+        await updateProfile(formData);
+
+      setProfile(updated);
+
+      setEditing(false);
+
+      alert("Profile updated successfully!");
+
+    } catch (error) {
+
+      alert("Failed to update profile");
+
+      console.error(error);
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -62,7 +91,15 @@ function ProfilePage() {
           </div>
 
           <div>
-            <h1>{profile.fullName}</h1>
+            {editing ? (
+              <input
+                name="fullName"
+                value={formData.fullName || ""}
+                onChange={handleChange}
+              />
+            ) : (
+              <h1>{profile.fullName}</h1>
+            )}
             <p>Your PracView AI career dashboard identity</p>
           </div>
         </div>
@@ -73,7 +110,15 @@ function ProfilePage() {
             <FaUser />
             <div>
               <span>Full Name</span>
-              <h3>{profile.fullName}</h3>
+              {editing ? (
+                <input
+                  name="fullName"
+                  value={formData.fullName || ""}
+                  onChange={handleChange}
+                />
+              ) : (
+                <h3>{profile.fullName}</h3>
+              )}
             </div>
           </div>
 
@@ -89,7 +134,15 @@ function ProfilePage() {
             <FaUniversity />
             <div>
               <span>College</span>
-              <h3>{profile.college}</h3>
+              {editing ? (
+                <input
+                  name="college"
+                  value={formData.college || ""}
+                  onChange={handleChange}
+                />
+              ) : (
+                <h3>{profile.college}</h3>
+              )}
             </div>
           </div>
 
@@ -97,7 +150,15 @@ function ProfilePage() {
             <FaBriefcase />
             <div>
               <span>Career Goal</span>
-              <h3>{profile.role}</h3>
+              {editing ? (
+                <input
+                  name="role"
+                  value={formData.role || ""}
+                  onChange={handleChange}
+                />
+              ) : (
+                <h3>{profile.role}</h3>
+              )}
             </div>
           </div>
 
@@ -118,6 +179,21 @@ function ProfilePage() {
           >
             <FaSignOutAlt /> Logout
           </button>
+          {editing ? (
+            <button
+              className="profile-save-btn"
+              onClick={saveProfile}
+            >
+              Save Changes
+            </button>
+          ) : (
+            <button
+              className="profile-edit-btn"
+              onClick={() => setEditing(true)}
+            >
+              Edit Profile
+            </button>
+          )}
         </div>
 
       </div>

@@ -20,3 +20,11 @@ export const getProfile = async (email) => {
   });
   return response.data;
 };
+export const updateProfile = async (profileData) => {
+  const response = await axios.put(
+    `${API}/profile`,
+    profileData
+  );
+
+  return response.data;
+};
