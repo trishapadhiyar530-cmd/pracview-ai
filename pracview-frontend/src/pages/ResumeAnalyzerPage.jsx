@@ -20,6 +20,7 @@ function ResumeAnalyzerPage() {
     if (!file) return;
 
     setLoading(true);
+    setShowAnalysis(true);
 
     try {
       const userEmail = localStorage.getItem("userEmail");
@@ -27,14 +28,12 @@ function ResumeAnalyzerPage() {
       const response = await analyzeResume(file, userEmail);
 
       setAnalysis(response.response);
-      setShowAnalysis(true);
 
     } catch (error) {
       console.log(error);
       console.log(error.response?.data);
 
       setAnalysis("⚠️ Resume analysis failed.");
-      setShowAnalysis(true);
 
     } finally {
       setLoading(false);
@@ -61,7 +60,7 @@ function ResumeAnalyzerPage() {
           <div className="analysis-section">
             {loading ? (
               <div className="thinking-msg">
-                🤖 AI analyzing your resume<span className="dots"></span>
+                🤖 PracView AI is analyzing your resume...<span className="dots"></span>
               </div>
             ) : (
               <div className="analysis-section">

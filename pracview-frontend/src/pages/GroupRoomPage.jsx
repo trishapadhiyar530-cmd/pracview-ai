@@ -23,8 +23,9 @@ function GroupRoomPage() {
       return;
     }
 
-    toast.success("Joined room successfully");
-    setJoined(true);
+    const response = await createRoom(userEmail);
+
+    setRoomCode(response.roomCode);
   };
 
   return (
