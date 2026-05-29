@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProfile, updateprofile } from "../services/authService";
+import { getProfile, updateProfile } from "../services/authService";
 import {
   FaUser,
   FaEnvelope,
