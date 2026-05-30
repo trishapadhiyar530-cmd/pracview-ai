@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API =
-  "http://localhost:8081/api/group";
+  `${import.meta.env.VITE_API_BASE_URL}/api/group`;
 
 export const createRoom = async (email) => {
 
