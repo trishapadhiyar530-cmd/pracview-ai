@@ -1,9 +1,12 @@
 import axios from "axios";
 
 const API =
-  `${import.meta.env.VITE_API_BASE_URL}/api/group`;
+  `${import.meta.env.VITE_API_BASE_URL}/api/group`
 
 export const createRoom = async (email) => {
+  console.log("Creating room...");
+  console.log(API);
+  console.log(email);
 
   const response = await axios.post(
     `${API}/create`,

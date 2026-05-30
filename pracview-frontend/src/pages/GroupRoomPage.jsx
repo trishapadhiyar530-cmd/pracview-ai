@@ -85,6 +85,21 @@ function GroupRoomPage() {
       );
     }
   };
+  const loadRoom = async () => {
+
+    const room =
+      await getRoom(roomCode);
+
+    const users =
+      room.participants.split(",");
+
+    setParticipants(
+      users.map(user => ({
+        name: user,
+        status: "Ready"
+      }))
+    );
+  };
 
   return (
     <div className="group-page">
@@ -139,6 +154,9 @@ function GroupRoomPage() {
             <button className="start-group-btn">
               Start Group Practice
             </button>
+            <button className="start-group-btn" onClick={loadRoom}>
+            Refresh Participants
+          </button>
           </div>
         )}
       </div>
