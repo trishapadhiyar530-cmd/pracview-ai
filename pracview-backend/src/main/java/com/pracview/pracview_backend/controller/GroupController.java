@@ -39,4 +39,42 @@ public class GroupController {
 
         return groupRoomRepository.save(room);
     }
+    @PostMapping("/join")
+    public GroupRoom joinRoom(
+            @RequestBody Map<String, String> request
+    ) {
+
+        String roomCode = request.get("roomCode");
+        String email = request.get("email");
+
+        GroupRoom room = groupRoomRepository
+                .findByRoomCode(roomCode)
+                .orElseThrow(
+                        () -> new RuntimeException("Room not found")
+                );
+
+        String participants = room.getParticipants();
+
+        if (!participants.contains(email)) {
+
+            room.setParticipants(
+                    participants + "," + email
+            );
+
+            groupRoomRepository.save(room);
+        }
+
+        return room;
+    }
+    @GetMapping("/{roomCode}")
+    public GroupRoom getRoom(
+            @PathVariable String roomCode
+    ) {
+
+        return groupRoomRepository
+                .findByRoomCode(roomCode)
+                .orElseThrow(
+                        () -> new RuntimeException("Room not found")
+                );
+    }
 }

@@ -1,31 +1,89 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { FaUsers, FaPlusCircle, FaSignInAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
+import {
+  createRoom,
+  joinRoom,
+  getRoom
+} from "../services/groupService";
 
 function GroupRoomPage() {
   const [roomCode, setRoomCode] = useState("");
   const [joined, setJoined] = useState(false);
+  const [participants, setParticipants] = useState([]);
 
-  const participants = [
-    { name: "Trisha", status: "Ready" },
-    { name: "Aarav", status: "Waiting" },
-    { name: "Neha", status: "Ready" },
-  ];
+  useEffect(() => {
 
-  const createRoom = async () => {
-    toast.success("Room created! Code: PV2025");
-    setJoined(true);
+    const email =
+      localStorage.getItem("userEmail");
+
+    setParticipants([
+      {
+        name: email || "Guest",
+        status: "Ready",
+      },
+    ]);
+
+  }, []);
+
+  const handleCreateRoom = async () => {
+    try {
+
+      const userEmail =
+        localStorage.getItem("userEmail");
+
+      const response =
+        await createRoom(userEmail);
+
+      setRoomCode(response.roomCode);
+
+      setJoined(true);
+
+      toast.success(
+        `Room created! Code: ${response.roomCode}`
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      toast.error("Failed to create room");
+    }
   };
 
-  const joinRoom = async () => {
-    if (!roomCode.trim()) {
-      toast.error("Enter room code");
-      return;
+  const handleJoinRoom = async () => {
+
+    try {
+
+      const email =
+        localStorage.getItem("userEmail");
+
+      const room =
+        await joinRoom(roomCode, email);
+
+      const users =
+        room.participants.split(",");
+
+      setParticipants(
+        users.map(user => ({
+          name: user,
+          status: "Ready"
+        }))
+      );
+
+      setJoined(true);
+
+      toast.success(
+        "Joined room successfully"
+      );
+
+    } catch (error) {
+
+      toast.error(
+        "Room not found"
+      );
     }
-
-    const response = await createRoom(userEmail);
-
-    setRoomCode(response.roomCode);
   };
 
   return (
@@ -41,7 +99,7 @@ function GroupRoomPage() {
 
         {!joined ? (
           <div className="group-actions">
-            <button onClick={createRoom}>
+            <button onClick={handleCreateRoom}>
               <FaPlusCircle /> Create Room
             </button>
 
@@ -53,7 +111,7 @@ function GroupRoomPage() {
                 onChange={(e) => setRoomCode(e.target.value)}
               />
 
-              <button onClick={joinRoom}>
+              <button onClick={handleJoinRoom}>
                 <FaSignInAlt /> Join Room
               </button>
             </div>
@@ -62,7 +120,7 @@ function GroupRoomPage() {
           <div className="room-dashboard">
             <div className="room-code-card">
               <h2>Room Code</h2>
-              <h3>PV2025</h3>
+              <h3>{roomCode}</h3>
             </div>
 
             <div className="participants-section">
